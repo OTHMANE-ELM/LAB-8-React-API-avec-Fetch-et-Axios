@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+# TP 8 – Consommer une API avec Fetch et Axios dans React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+## 📋 Présentation
 
-### `npm start`
+Ce TP vous apprend à connecter une application React à une API REST externe pour récupérer et afficher des données dynamiques. Vous comparerez deux approches complémentaires :
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- `fetch()` — l'API native du navigateur, sans installation
+- `axios` — une librairie tierce qui simplifie les requêtes HTTP
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+À la fin de ce TP, votre application affiche :
+- **Un bloc avec 5 titres d'articles** récupérés depuis `/posts` via `fetch()`
+- **Un bloc avec les utilisateurs et leurs emails** récupérés depuis `/users` via `axios`
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🗂️ Structure du projet
 
-### `npm run build`
+```
+tp8-react-api/
+├── public/
+│   └── index.html
+├── src/
+│   ├── components/
+│   │   ├── PostsList.jsx       # Étape 3 – fetch()
+│   │   └── UsersList.jsx       # Étape 4 – axios
+│   ├── App.jsx                 # Étape 5 – Assemblage
+│   ├── App.css
+│   └── main.jsx
+├── package.json
+└── vite.config.js
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Bloc gauche — Articles via `fetch()`
 
-### `npm run eject`
+Ce bloc affiche **5 titres d'articles** récupérés depuis :
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+L'application extrait uniquement le champ `title` pour l'afficher. Vous devriez voir apparaître 5 lignes comme :
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+• sunt aut facere repellat provident occaecati...
+• qui est esse
+• ea molestias quasi exercitationem repellat qui ipsa sit aut
+• eum et est occaecati
+• nesciunt quas odio
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+> ℹ️ Les titres sont en Latin (Lorem Ipsum) car JSONPlaceholder est une API de test avec des données factices.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+#### Bloc droit — Utilisateurs via `axios`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Ce bloc affiche **10 utilisateurs** avec leur nom et email, récupérés depuis :
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+L'application extrait `name` et `email` pour afficher :
 
-### Code Splitting
+```
+Leanne Graham — Sincere@april.biz
+Ervin Howell — Shanna@melissa.tv
+Clementine Bauch — Nathan@yesenia.net
+...
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+> ℹ️ L'API retourne 10 utilisateurs au total. Aucun paramètre `?_limit` n'est utilisé ici, ils s'affichent tous.
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🔬 Screenshot
 
-### Making a Progressive Web App
+<img width="1917" height="1022" alt="App" src="https://github.com/user-attachments/assets/4556fed2-a508-4344-8e05-0e827735bc00" />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+> _L'application affichant les deux blocs de données en parallèle_
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## 🔄 Cycle de vie d'une requête React
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```
+Montage du composant
+       ↓
+   useEffect()  ←── déclenché une seule fois (dépendances [])
+       ↓
+fetch() / axios.get()  ←── requête HTTP asynchrone
+       ↓
+   .then(data)
+       ↓
+  setState(data)  ←── déclenche un re-render
+       ↓
+  Affichage des données
+```
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+## 👨‍💻 Auteur
+**Othmane EL MATLINI**
+TP réalisé dans le cadre du cours **Développement Front-End Moderne avec React**.
