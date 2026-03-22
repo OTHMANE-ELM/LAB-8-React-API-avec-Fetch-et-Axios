@@ -1,38 +1,231 @@
-.App {
+/* =========================================================
+   VARIABLES CSS : THÈME BLEU EXCLUSIF ET MODERNE
+   ========================================================= */
+:root {
+  --primary-blue: #1d4ed8;       /* Bleu roi principal */
+  --secondary-blue: #3b82f6;     /* Bleu un peu plus doux et vif */
+  --light-blue: #eff6ff;         /* Fond bleuté très léger (cartes) */
+  --dark-blue: #1e3a8a;          /* Bleu très sombre (contrastes) */
+  --background-page: #f8fafc;    /* Couleur de fond neutre */
+  --text-main: #334155;          /* Gris foncé pour meilleure lisibilité */
+  --text-muted: #64748b;         /* Gris clair pour le texte secondaire */
+  --white: #ffffff;
+  
+  /* Ombres pour ajouter du relief (Glassmorphism / Modern Material) */
+  --shadow-sm: 0 2px 4px rgba(29, 78, 216, 0.08);
+  --shadow-md: 0 8px 20px rgba(29, 78, 216, 0.12);
+  
+  /* Paramètres d'arrondis et transitions */
+  --border-radius: 12px;
+  --transition-speed: 0.35s;
+}
+
+/* =========================================================
+   RÉINITIALISATION & FONTES
+   ========================================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--background-page);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================================
+   CONTENEUR ET EN-TÊTE
+   ========================================================= */
+.app-container {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+.app-header {
   text-align: center;
+  margin-bottom: 3.5rem;
+  padding: 3rem 2rem;
+  /* Magnifique dégradé de bleus */
+  background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
+  border-radius: calc(var(--border-radius) + 4px);
+  color: var(--white);
+  box-shadow: 0 10px 25px rgba(30, 58, 138, 0.25);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app-header h1 {
+  font-size: 2.4rem;
+  margin-bottom: 0.75rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.app-header p {
+  color: var(--light-blue);
+  font-size: 1.15rem;
+  font-weight: 400;
+  opacity: 0.95;
+}
+
+/* =========================================================
+   GRILLE ET CARTES COMPOSANTS
+   ========================================================= */
+.content-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+/* Affichage 2 colonnes sur écrans plus larges */
+@media (min-width: 768px) {
+  .content-container {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.card {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  border-top: 5px solid var(--primary-blue);
   display: flex;
   flex-direction: column;
+}
+
+/* Effets de survol animés et dynamiques */
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+.card h2 {
+  color: var(--dark-blue);
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1.8rem;
+  font-weight: 500;
+}
+
+/* =========================================================
+   LISTES ET ÉLÉMENTS DE DONNÉES
+   ========================================================= */
+.item-list {
+  list-style-type: none;
+  flex-grow: 1;
+}
+
+.item {
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.8rem;
+  background-color: var(--light-blue);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  transition: background-color var(--transition-speed) ease;
+  border-left: 3px solid transparent;
+}
+
+.item:hover {
+  background-color: #dbeafe; /* Bleu très subtile */
+  border-left-color: var(--secondary-blue);
+}
+
+.item-id {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.item-title {
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* =========================================================
+   STYLES SPÉCIFIQUES - UTILISATEURS / AVATARS
+   ========================================================= */
+.user-avatar {
+  background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+  color: var(--white);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
 }
 
-.App-link {
-  color: #61dafb;
+.user-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.user-name {
+  font-weight: 700;
+  color: var(--dark-blue);
+  font-size: 1.05rem;
+}
+
+.user-email {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+/* =========================================================
+   ÉTATS SPÉCIAUX (CHARGEMENT ET ERREURS)
+   ========================================================= */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 250px;
+  color: var(--primary-blue);
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-top-color: var(--secondary-blue);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+.error {
+  border-top-color: #ef4444; /* Rouge erreur */
+}
+
+.error p {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  padding: 1.25rem;
+  border-radius: 8px;
+  border: 1px solid #fca5a5;
+  font-weight: 500;
 }
